@@ -86,6 +86,7 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
             liquidity
         );
 
+        //mint ERC20 tokens equal to twice the value of amount0 of token0 that was deposted
         _mint(owner, amount0 * 2);
 
         // set the owner and data for position
@@ -116,8 +117,6 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
             uint256 amount1
         )
     {
-        // For this example, we will provide equal amounts of liquidity in both assets.
-        // Providing liquidity in both assets means liquidity will be earning fees and is considered in-range.
         uint256 amount0ToMint = 1000 * 10**18;
         uint256 amount1ToMint = 1000 * 10**6;
 
@@ -162,7 +161,7 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
                 deadline: block.timestamp
             });
 
-        // Note that the pool defined by DAI/USDC and fee tier 0.3% must already be created and initialized in order to mint
+        // Note that the pool defined by DAI/USDC and fee tier 0.01% must already be created and initialized in order to mint
         (tokenId, liquidity, amount0, amount1) = nonfungiblePositionManager
             .mint(params);
 
@@ -197,6 +196,7 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
         // must be the owner of the NFT
         require(msg.sender == deposits[tokenId].owner, "Not the owner");
 
+        //burn all the tokens owned by msg.sender
         _burn(msg.sender, deposits[tokenId].mintedAmount);
 
         // transfer ownership to original owner
