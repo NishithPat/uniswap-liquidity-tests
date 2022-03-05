@@ -86,7 +86,7 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
             liquidity
         );
 
-        //mint ERC20 tokens equal to twice the value of amount0 of token0 that was deposted
+        //mint amount equal to twice the amount0 of token0 held in the NFT
         _mint(owner, amount0 * 2);
 
         // set the owner and data for position
@@ -196,7 +196,7 @@ contract LiquidityExamples is IERC721Receiver, ERC20 {
         // must be the owner of the NFT
         require(msg.sender == deposits[tokenId].owner, "Not the owner");
 
-        //burn all the tokens owned by msg.sender
+        //burn the ERC20 tokens owned by msg.sender
         _burn(msg.sender, deposits[tokenId].mintedAmount);
 
         // transfer ownership to original owner
